@@ -13,5 +13,7 @@ class PlayerController : MonoBehaviour
         direction.Normalize();
 
         transform.position += direction * speed * Time.deltaTime;
+
+        Debug.Log("Mod");
     }
 }
