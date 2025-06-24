@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Follower : MonoBehaviour
 {
-    [SerializeField] float speed = 5;
     [SerializeField] Transform followed;
+    [SerializeField, Min(0)] float speed = 5;
+    [SerializeField, Min(0)] float minDistance = 2;
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, followed.position, speed * Time.deltaTime);
+        if(Vector3.Distance(followed.position, transform.position) > minDistance)
+            transform.position = Vector3.MoveTowards(transform.position, followed.position, speed * Time.deltaTime);
 
         Vector3 direction = followed.position - transform.position;
         if (direction != Vector3.zero)
