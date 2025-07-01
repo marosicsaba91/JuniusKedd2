@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
     [SerializeField] float maxHealth = 100;
-    [SerializeField] GameObject inactivateWhenDie;
-    [SerializeField] Behaviour disableWhenDie;
+    [SerializeField] Behaviour[] disableWhenDie;
 
     float currentHeath;
 
@@ -20,8 +18,8 @@ public class Damageable : MonoBehaviour
 
         if (currentHeath <= 0)
         {
-            disableWhenDie.enabled = false;
-            inactivateWhenDie.SetActive(false);
+            foreach(Behaviour b in disableWhenDie)
+                b.enabled = false;
         }
     }
 }

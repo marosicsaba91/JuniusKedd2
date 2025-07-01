@@ -1,16 +1,21 @@
 using UnityEngine;
-using UnityEngine.Serialization;
+using System;
+using Random = UnityEngine.Random;
 
 public class SpaceshipGun : MonoBehaviour
 {
-    [SerializeField, FormerlySerializedAs("projectileProto")] GameObject projectilePrototype;
-    [SerializeField] KeyCode shootKey = KeyCode.Space;
+    [SerializeField] GameObject[] projectilePrototypes;
 
-    void Update()
+    int count;
+
+    public void Shoot()
     {
-        if (Input.GetKeyDown(shootKey))
-        {
-            Instantiate(projectilePrototype, transform.position, transform.rotation);
-        }        
+        int randomIndex = Random.Range(0, projectilePrototypes.Length);
+        GameObject p = projectilePrototypes[randomIndex];
+
+        //GameObject p = projectilePrototypes[count % projectilePrototypes.Length;
+
+        GameObject newProjectile = Instantiate(p, transform.position, transform.rotation);
+        count++;
     }
 }
