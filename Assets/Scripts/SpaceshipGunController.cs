@@ -9,19 +9,16 @@ enum ShootingType
 
 public class SpaceshipGunController : MonoBehaviour
 {
-    [SerializeField] SpaceshipGun[] guns;
+    [SerializeField] GameObject[] projectilePrototypes;
+    [SerializeField] Transform minGunPoint;                // Házi:  Nem transformokkal
+    [SerializeField] Transform maxGunPoint;
+    [SerializeField, Min(1)] int gunCount = 1;
     [SerializeField] KeyCode shootKey = KeyCode.Space;
     [SerializeField] ShootingType shootingType;
 
-    int count = 0;
+    int projectileIndex = 0;
     int direction = 1;
     int pingPongIndex = 0;
-
-    void OnValidate()
-    {
-        if (guns == null || guns.Length == 0)
-            guns = GetComponentsInChildren<SpaceshipGun>(true);
-    }
 
     void Update()
     {
@@ -33,20 +30,25 @@ public class SpaceshipGunController : MonoBehaviour
     {
         if (shootingType == ShootingType.Loop)
         {
-            guns[count % guns.Length].Shoot();
+            Pose gunPoint = GetPose(projectileIndex % gunCount);
+            Shoot(gunPoint.position, gunPoint.rotation);
         }
         else if (shootingType == ShootingType.SameTime)
         {
-            foreach (SpaceshipGun gun in guns)
-                gun.Shoot();
+            for (int i = 0; i < gunCount; i++)
+            {
+                Pose gunPoint = GetPose(i);
+                Shoot(gunPoint.position, gunPoint.rotation);
+            }
         }
         else if (shootingType == ShootingType.PinPong)
         {
-            guns[pingPongIndex].Shoot();
+            Pose gunPoint = GetPose(pingPongIndex);
+            Shoot(gunPoint.position, gunPoint.rotation);
 
-            if (guns.Length > 1)
+            if (gunCount > 1)
             {
-                if (direction > 0 && pingPongIndex == guns.Length - 1)
+                if (direction > 0 && pingPongIndex == gunCount - 1)
                     direction = -1;
                 else if (direction < 0 && pingPongIndex == 0)
                     direction = 1;
@@ -55,6 +57,38 @@ public class SpaceshipGunController : MonoBehaviour
             }
         }
 
-        count++;
+        projectileIndex++;
+    }
+
+    Pose GetPose(int index)
+    {
+        float t = (float)index / (gunCount - 1);
+
+        return new()
+        {
+            position = Vector3.Lerp(minGunPoint.position, maxGunPoint.position, t),
+            rotation = Quaternion.Slerp(minGunPoint.rotation, maxGunPoint.rotation, t)
+        };
+    }
+
+    void Shoot(Vector3 position, Quaternion rotation)
+    {
+        int randomIndex = Random.Range(0, projectilePrototypes.Length);
+        GameObject p = projectilePrototypes[randomIndex];
+        GameObject newProjectile = Instantiate(p, position, rotation);
+    }
+
+    [SerializeField] float gismoRad;
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        for (int i = 0; i < gunCount; i++)
+        {
+            Pose p = GetPose(i);
+            GizmoExtras.DrawCircle(p.position, gismoRad);
+
+            Vector3 offset = p.rotation * Vector3.up;
+            Gizmos.DrawLine(p.position, p.position + offset);
+        }
     }
 }

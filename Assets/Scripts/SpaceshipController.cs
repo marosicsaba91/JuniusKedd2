@@ -6,6 +6,7 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField] float maxSpeed = 20;
     [SerializeField] float angularSpeed = 360;
     [SerializeField] float drag = 1;
+     
 
     Vector3 velocity;
 
@@ -28,4 +29,7 @@ public class SpaceshipController : MonoBehaviour
         Vector3 dragVector = -velocity * drag;
         velocity += dragVector * Time.fixedDeltaTime;
     }
+
+
+
 }

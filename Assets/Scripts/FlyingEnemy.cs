@@ -7,6 +7,8 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] float randomRadius = 10;
     [SerializeField] float minWaitingTime = 1;
     [SerializeField] float maxWaitingTime = 2;
+    [SerializeField] int shootCount = 1;
+    [SerializeField] float shootDuration = 0.1f;
 
     [SerializeField] Projectile projectile;
 
@@ -27,14 +29,28 @@ public class FlyingEnemy : MonoBehaviour
             foreach (var w in MovePhase())
                 yield return w;
 
-            SpaceshipController player = FindAnyObjectByType<SpaceshipController>();
-            Vector2 direction = (player.transform.position - transform.position).normalized;
-            float angle = Vector2.SignedAngle(Vector2.up, direction);
-            Quaternion rotation = Quaternion.Euler(0,0,angle);
-            Instantiate(projectile, transform.position, rotation);
+            foreach (var w in ShootPhase())
+                yield return w;
 
             float waitTime = Random.Range(minWaitingTime, maxWaitingTime);
             yield return new WaitForSeconds(waitTime);
+        }
+    }
+
+    WaitForSeconds wait;
+    IEnumerable ShootPhase()
+    {
+        SpaceshipController player = FindAnyObjectByType<SpaceshipController>();
+        Vector2 direction = (player.transform.position - transform.position).normalized;
+
+        wait ??= new(shootDuration);
+
+        for (int i = 0; i < shootCount; i++)
+        {
+            float angle = Vector2.SignedAngle(Vector2.up, direction);
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+            Instantiate(projectile, transform.position, rotation);
+            yield return wait;
         }
     }
 
@@ -51,6 +67,6 @@ public class FlyingEnemy : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(Vector3.zero, randomRadius);        
+        Gizmos.DrawWireSphere(Vector3.zero, randomRadius);
     }
 }
