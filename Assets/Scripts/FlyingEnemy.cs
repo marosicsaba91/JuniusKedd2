@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] float maxSpeed = 30;
+    [SerializeField] float smoothTime = 0.5f;
     [SerializeField] float randomRadius = 10;
     [SerializeField] float minWaitingTime = 1;
     [SerializeField] float maxWaitingTime = 2;
@@ -56,10 +57,20 @@ public class FlyingEnemy : MonoBehaviour
 
     IEnumerable MovePhase()
     {
-        Vector2 targetPoint = Random.insideUnitCircle * randomRadius;
-        while ((Vector2)transform.position != targetPoint)
+        Vector2 velocity = Vector2.zero;
+
+        Camera mainCamera = Camera.main;
+        Rect cameraRect = Utility.GetRect(mainCamera);
+        Vector2 targetPoint = cameraRect.GetRandomPoint();
+
+        // Vector2 targetPoint = Random.insideUnitCircle * randomRadius;
+
+        float dist = Vector2.Distance(transform.position, targetPoint);
+        float currentSmoothTime = smoothTime * dist;
+        while (Vector2.Distance(transform.position, targetPoint) > 0.01f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPoint, Time.deltaTime * speed);
+            transform.position =
+                Vector2.SmoothDamp(transform.position, targetPoint, ref velocity, currentSmoothTime, maxSpeed, Time.deltaTime);
             yield return null;
         }
     }

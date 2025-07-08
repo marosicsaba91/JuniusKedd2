@@ -15,6 +15,8 @@ public class SpaceshipGunController : MonoBehaviour
     [SerializeField, Min(1)] int gunCount = 1;
     [SerializeField] KeyCode shootKey = KeyCode.Space;
     [SerializeField] ShootingType shootingType;
+    [SerializeField] SpriteRenderer bullsEye;
+    [SerializeField] LayerMask rayCastMask;
 
     int projectileIndex = 0;
     int direction = 1;
@@ -24,6 +26,25 @@ public class SpaceshipGunController : MonoBehaviour
     {
         if (Input.GetKeyDown(shootKey))
             Shoot();
+
+        Aim();
+    }
+
+    void Aim()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position,
+            transform.up,
+            float.PositiveInfinity,
+            rayCastMask);
+
+        bool isHit = hit.collider != null;
+
+        bullsEye.enabled = isHit;
+        if (isHit)
+        {
+            bullsEye.transform.position = hit.point;
+        }
     }
 
     void Shoot()
