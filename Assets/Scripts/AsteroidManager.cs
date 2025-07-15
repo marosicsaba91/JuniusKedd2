@@ -20,7 +20,7 @@ public class AsteroidManager : MonoBehaviour
         for (int i = 0; i < startCount; i++)
         {
             int randomIndex = random.Next(asteroids.Count - 1);
-            Asteroid a = asteroids[randomIndex];
+            Asteroid asteroidPrefab = asteroids[randomIndex];
 
             Vector3 p;
             do
@@ -29,11 +29,12 @@ public class AsteroidManager : MonoBehaviour
             } while (Vector2.Distance(p,rect.center) < minDistanceFromCameraCentre);
                        
             Quaternion r = Quaternion.Euler(0, 0, (float)(random.NextDouble() * 360));
-            Instantiate(a, p, r, transform);
+            Asteroid newAsteroid = Instantiate(asteroidPrefab, p, r, transform);
+            newAsteroid.Setup(random);
         }
     }
 
-    private void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(Camera.main.GetRect().center, minDistanceFromCameraCentre);
     }

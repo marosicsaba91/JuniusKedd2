@@ -32,4 +32,30 @@ public static class Utility
         float y = Mathf.Lerp(rect.yMin, rect.yMax, (float)random.NextDouble());
         return new(x, y);
     }
+
+    public static Quaternion LookRotation2D(Vector2 direction)
+    {
+        float angle = Vector2.SignedAngle(Vector2.up, direction);
+        return Quaternion.Euler(0, 0, angle);
+    }
+
+    public static float Range(this System.Random random, float minValue, float maxValue)
+    {
+        double t = random.NextDouble();
+        return Mathf.Lerp(minValue, maxValue, (float)t);
+    }
+
+    public static Vector2 InsideUnitCircle(this System.Random random)
+    {
+        float a = (float)random.NextDouble() * Mathf.PI * 2;
+        Vector2 dir = new(Mathf.Cos(a), Mathf.Sin(a));  // Irány: Egység vektor
+        float m = (float)random.NextDouble();           // Hossz
+        return dir * m;
+    }
+
+    public static Vector2 OnUnitCircle(this System.Random random)
+    {
+        float a = (float)random.NextDouble() * Mathf.PI * 2;
+        return new(Mathf.Cos(a), Mathf.Sin(a));  // Irány: Egység vektor
+    }
 }

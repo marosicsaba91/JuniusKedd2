@@ -239,9 +239,9 @@ MonoBehaviour:
   - {fileID: 1338922764887306601, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
   - {fileID: 1783966514977274694, guid: 9b1a6f111e6d26f408909605b3edeee4, type: 3}
   - {fileID: 1783966514977274694, guid: 64500667a0ec196429f8b9b4fce63acf, type: 3}
-  startCount: 5
+  startCount: 10
   minDistanceFromCameraCentre: 6
-  useRandomSeed: 1
+  useRandomSeed: 0
   seed: 5
 --- !u!4 &322041280
 Transform:
@@ -365,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &400508742
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -440,6 +440,8 @@ MonoBehaviour:
   maxWaitingTime: 2
   shootCount: 3
   shootDuration: 0.15
+  angularSpeed: 360
+  minDistanceToTurn: 1
   projectile: {fileID: 6243043996623807262, guid: 05609e58ae552f84f9d2405ccb1534a5, type: 3}
 --- !u!4 &400508744
 Transform:
@@ -468,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed0c96a7ad1aa694190e79f96e8a4934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  <MaxHealth>k__BackingField: 100
   disableWhenDie:
   - {fileID: 400508743}
 --- !u!60 &400508746
@@ -899,10 +901,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01bba18e49e10fc4ebd49a635549bf6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 20
-  maxSpeed: 30
-  angularSpeed: 360
-  drag: 0.6
+  rigidBody: {fileID: 2005174393}
+  acceleration: 60
+  maxSpeed: 40
+  angularSpeed: 260
+  drag: 1
 --- !u!114 &2005174391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,9 +922,9 @@ MonoBehaviour:
   - {fileID: 4467154085703469483, guid: 3f31e040cffa5724291925012664c5a2, type: 3}
   minGunPoint: {fileID: 1916878653}
   maxGunPoint: {fileID: 1940639029}
-  gunCount: 25
+  gunCount: 3
   shootKey: 32
-  shootingType: 2
+  shootingType: 1
   bullsEye: {fileID: 348102849}
   rayCastMask:
     serializedVersion: 2
@@ -939,7 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed0c96a7ad1aa694190e79f96e8a4934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  <MaxHealth>k__BackingField: 100
   disableWhenDie:
   - {fileID: 2005174390}
   - {fileID: 2005174391}
@@ -951,25 +954,25 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005174387}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 17.12205
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 8215bb6f301533e46b23026b611750cb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &2005174394
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1000,7 +1003,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

@@ -9,10 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9148983596291789725}
-  - component: {fileID: 8351529709213464045}
   - component: {fileID: 1338922764887306601}
+  - component: {fileID: -2753821705332817713}
+  - component: {fileID: -7281016747130703689}
+  - component: {fileID: -2318150221987229327}
+  - component: {fileID: 8351529709213464045}
   - component: {fileID: 1962067205867433596}
-  m_Layer: 0
+  - component: {fileID: 7224972611581894718}
+  m_Layer: 10
   m_Name: Asteroid 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,6 +38,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338922764887306601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681060066156977224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cda2d7dd4eb95f4391fea14a5f6990b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 7224972611581894718}
+  spriteRenderer: {fileID: 8351529709213464045}
+  damageable: {fileID: -7281016747130703689}
+  minSpeed: 15
+  maxSpeed: 20
+  spritesByDamage:
+  - {fileID: 21300000, guid: d0eb3348061762e469afed9f6d1fe0fc, type: 3}
+  - {fileID: 21300002, guid: d0eb3348061762e469afed9f6d1fe0fc, type: 3}
+  - {fileID: 21300004, guid: d0eb3348061762e469afed9f6d1fe0fc, type: 3}
+  - {fileID: 21300006, guid: d0eb3348061762e469afed9f6d1fe0fc, type: 3}
+  - {fileID: 21300008, guid: d0eb3348061762e469afed9f6d1fe0fc, type: 3}
+  - {fileID: 21300010, guid: d0eb3348061762e469afed9f6d1fe0fc, type: 3}
+--- !u!114 &-2753821705332817713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681060066156977224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2bb3f720f3de2439fe2919603fdc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7281016747130703689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681060066156977224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0c96a7ad1aa694190e79f96e8a4934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100
+  disableWhenDie: []
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-2318150221987229327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681060066156977224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37cc8325f302f0e47b0639f2f92d8bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDamage: 5
+  maxDamage: 20
+  minSpeedToDamage: 5
+  maxDamageSpeed: 20
 --- !u!212 &8351529709213464045
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,18 +162,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1338922764887306601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4681060066156977224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cda2d7dd4eb95f4391fea14a5f6990b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &1962067205867433596
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -237,3 +298,30 @@ PolygonCollider2D:
       - {x: 0.505, y: -2.3799999}
       - {x: 1.025, y: -2.2}
   m_UseDelaunayMesh: 1
+--- !u!50 &7224972611581894718
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4681060066156977224}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 23.41305
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: a44464a0719d02548b0eeef189165653, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0

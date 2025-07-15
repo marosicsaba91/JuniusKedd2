@@ -10,6 +10,8 @@ public class FlyingEnemy : MonoBehaviour
     [SerializeField] float maxWaitingTime = 2;
     [SerializeField] int shootCount = 1;
     [SerializeField] float shootDuration = 0.1f;
+    [SerializeField] float angularSpeed = 360;
+    [SerializeField] float minDistanceToTurn = 1; 
 
     [SerializeField] Projectile projectile;
 
@@ -48,8 +50,7 @@ public class FlyingEnemy : MonoBehaviour
 
         for (int i = 0; i < shootCount; i++)
         {
-            float angle = Vector2.SignedAngle(Vector2.up, direction);
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+            Quaternion rotation = Utility.LookRotation2D(direction);
             Instantiate(projectile, transform.position, rotation);
             yield return wait;
         }
@@ -62,15 +63,32 @@ public class FlyingEnemy : MonoBehaviour
         Camera mainCamera = Camera.main;
         Rect cameraRect = Utility.GetRect(mainCamera);
         Vector2 targetPoint = cameraRect.GetRandomPoint();
+        Vector2 direction2D = targetPoint - (Vector2)transform.position;
+        Quaternion targetRotation = Utility.LookRotation2D(direction2D);
+        Quaternion currentRotation = transform.rotation;
 
-        // Vector2 targetPoint = Random.insideUnitCircle * randomRadius;
+        while (currentRotation != targetRotation)
+        {
+            currentRotation = Quaternion.RotateTowards(currentRotation, targetRotation, angularSpeed * Time.deltaTime);
+            transform.rotation = currentRotation;
+            yield return null;
+        }
 
         float dist = Vector2.Distance(transform.position, targetPoint);
         float currentSmoothTime = smoothTime * dist;
-        while (Vector2.Distance(transform.position, targetPoint) > 0.01f)
+        while (Vector2.Distance(transform.position, targetPoint) > 0.1f)
         {
             transform.position =
                 Vector2.SmoothDamp(transform.position, targetPoint, ref velocity, currentSmoothTime, maxSpeed, Time.deltaTime);
+            dist = Vector2.Distance(transform.position, targetPoint);
+            if(dist < minDistanceToTurn)
+            { 
+                SpaceshipController player = FindAnyObjectByType<SpaceshipController>();
+                direction2D = (player.transform.position - transform.position);
+                targetRotation = Utility.LookRotation2D(direction2D);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, angularSpeed * Time.deltaTime);
+            }
+
             yield return null;
         }
     }

@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1338922764887306601, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
+      propertyPath: spritesByDamage.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1338922764887306601, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
+      propertyPath: 'spritesByDamage.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 7ee22dedc91d6904f9808dafc281ca2e, type: 3}
+    - target: {fileID: 1338922764887306601, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
+      propertyPath: 'spritesByDamage.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300002, guid: 7ee22dedc91d6904f9808dafc281ca2e, type: 3}
+    - target: {fileID: 1338922764887306601, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
+      propertyPath: 'spritesByDamage.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300004, guid: 7ee22dedc91d6904f9808dafc281ca2e, type: 3}
+    - target: {fileID: 1338922764887306601, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
+      propertyPath: 'spritesByDamage.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300006, guid: 7ee22dedc91d6904f9808dafc281ca2e, type: 3}
     - target: {fileID: 1962067205867433596, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 5.14
