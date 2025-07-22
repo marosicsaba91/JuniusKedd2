@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AsteroidManager : MonoBehaviour
 {
@@ -10,8 +13,25 @@ public class AsteroidManager : MonoBehaviour
     [SerializeField] bool useRandomSeed;
     [SerializeField] int seed;
 
+    [SerializeField] TMP_Text asteroidCountText;
+
+    List<Asteroid> livingAsteroids = new();
+    public void AddNewAsteroid(Asteroid a)
+    {
+        livingAsteroids.Add(a);
+        OnAsteroidCountChanged();
+    }
+
+    public void RemoveAsteroid(Asteroid a)
+    {
+        livingAsteroids.Remove(a);
+        OnAsteroidCountChanged();
+    }
+
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
+
         Camera cam = Camera.main;
         Rect rect = cam.GetRect();
 
@@ -32,10 +52,22 @@ public class AsteroidManager : MonoBehaviour
             Asteroid newAsteroid = Instantiate(asteroidPrefab, p, r, transform);
             newAsteroid.Setup(random);
         }
+
+        //restartButton.onClick.AddListener(RestartGame);
     }
 
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(Camera.main.GetRect().center, minDistanceFromCameraCentre);
+    }
+
+    public void RestartGame()  // Called from Button
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void OnAsteroidCountChanged() 
+    {
+        asteroidCountText.text = "Asteroids: " + livingAsteroids.Count;
     }
 }

@@ -7,6 +7,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] Behaviour[] disableWhenDie;
 
     public event Action<float, float> OnDamage;
+    public event Action OnDie;
 
     float currentHeath;
 
@@ -44,6 +45,8 @@ public class Damageable : MonoBehaviour
         {
             foreach (Behaviour b in disableWhenDie)
                 b.enabled = false;
+
+            OnDie?.Invoke();
         }
     }
 }

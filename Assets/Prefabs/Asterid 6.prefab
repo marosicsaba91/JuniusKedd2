@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1338922764887306601, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
+      propertyPath: spawnOnDie.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1962067205867433596, guid: 953c9388eac13b04b9b4071700bf08ad, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 2.75

@@ -58,4 +58,11 @@ public static class Utility
         float a = (float)random.NextDouble() * Mathf.PI * 2;
         return new(Mathf.Cos(a), Mathf.Sin(a));  // Irány: Egység vektor
     }
+
+    public static bool Contains(this LayerMask mask, int layer) 
+    {
+        int r = mask & layer;
+        return r != 0;
+    }
+
 }

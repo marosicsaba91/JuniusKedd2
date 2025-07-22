@@ -7,7 +7,6 @@ public class CupHeadMovement : MonoBehaviour
     [SerializeField] float minRadius = 2f;
     [SerializeField] float maxRadius = 5f;
     [SerializeField] AnimationCurve distanceOverTime;
-    // [SerializeField] float frequency = 1;
 
     float baseRotationDeg;
     float virtualTime;
