@@ -17,6 +17,9 @@ public class SpaceshipGunController : MonoBehaviour
     [SerializeField] ShootingType shootingType;
     [SerializeField] SpriteRenderer bullsEye;
     [SerializeField] LayerMask rayCastMask;
+    [SerializeField] AudioSource gunSound;
+    [SerializeField] AudioClip[] gunSoundClips;
+    [SerializeField] ParticleSystem gunMazzlePartiles;
 
     int projectileIndex = 0;
     int direction = 1;
@@ -97,6 +100,11 @@ public class SpaceshipGunController : MonoBehaviour
         int randomIndex = Random.Range(0, projectilePrototypes.Length);
         GameObject p = projectilePrototypes[randomIndex];
         GameObject newProjectile = Instantiate(p, position, rotation);
+
+        gunSound.clip = gunSoundClips[projectileIndex % gunSoundClips.Length];
+        gunSound.Play();
+
+        gunMazzlePartiles.Play();
     }
 
     [SerializeField] float gismoRad;
